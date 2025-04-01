@@ -29,12 +29,12 @@ public class UserUI {
 
     private static User currentUser;
 
-    public static void getCurrentUser(User user) throws InterruptedException {
+    public static void getCurrentUser(User user)  {
         currentUser = user;
         run();
     }
 
-    public static void run() throws InterruptedException {
+    public static void run()  {
         Optional<Card> card = getCardByUserId(currentUser.getId());
         mainWhile:
         while (true) {

@@ -6,17 +6,12 @@ import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
-        while (true) {
-            Optional<User> optionalUser = Auth.run();
-            if (optionalUser.isEmpty()) {
-                System.out.println("Dasturdan foydalanganingiz uchun rahmat!");
-                break;
-            }
-            try {
-                UserUI.getCurrentUser(optionalUser.get());
-            } catch (InterruptedException e) {
-                throw new RuntimeException();
-            }
+        Optional<User> optionalUser = Auth.run();
+        if (optionalUser.isEmpty()) {
+            System.out.println("Dasturdan foydalanganingiz uchun rahmat!");
+            return;
         }
+        UserUI.getCurrentUser(optionalUser.get());
+        main(null);
     }
 }
