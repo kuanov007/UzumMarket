@@ -23,8 +23,7 @@ public class Auth {
                 case 1 -> {
                     String userName = readLine("Creata a new username: ");
                     while (alreadyRegistered(userName)) {
-                        System.err.println("This username is already registered!");
-                        userName = readLine("Creata a new username: ");
+                        userName = readLine("This username is already registered!, Creata a new username: ");
                     }
                     String name = readLine("Enter your name: ");
                     UUID userID = UUID.randomUUID();
@@ -33,16 +32,17 @@ public class Auth {
                             1. Yes, sure\t2.Maybe later;
                             >>>""") == 1) {
                         String cardNumber = readLine("Enter your card number: ");
-                        if (!isUsingCard(cardNumber)) {
+                        if (isUsingCard(cardNumber)) {
                             System.err.println("This card already added by someone, you can't use it!");
                         } else {
-                            Card card = new Card(UUID.randomUUID(), cardNumber, new Random().nextLong(500, 1000), userID);
+                            Card card = new Card(UUID.randomUUID(), cardNumber, new Random().nextLong(5000, 10000), userID);
                             addACard(card);
                         }
                     } else {
                         System.out.println("Okay, you can add your cards in any time!");
                     }
-                    User user = new User(UUID.randomUUID(), name, userName);
+                    User user = new User(userID, name, userName);
+                    users.add(user);
                     return Optional.of(user);
                 }
 
@@ -54,7 +54,6 @@ public class Auth {
                         return getUserByUserName(userName);
                     }
                 }
-
                 case 0 -> {
                     break mainWhile;
                 }

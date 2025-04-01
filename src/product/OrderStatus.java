@@ -1,0 +1,10 @@
+package product;
+
+public enum OrderStatus {
+    BUYURTMA_BERILDI,
+    YIGILYAPDI,
+    KURYERDA,
+    OLIBKETISHGA_TAYYOR,
+    OLIBKETILDI,
+    BUYURTMA_BEKOR_QILINDI
+}
