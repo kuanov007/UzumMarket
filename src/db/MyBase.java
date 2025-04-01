@@ -13,6 +13,15 @@ public interface MyBase {
         return users.stream().anyMatch(_user -> username.equals(_user.getUsername()));
     }
 
+    static Optional<Card> getCardByUserId(UUID userId) {
+        for (Card card : cards) {
+            if (card.getUserId().equals(userId)) {
+                return Optional.of(card);
+            }
+        }
+        return Optional.empty();
+    }
+
     static boolean isUsingCard(String cardNumber) {
         return cards.stream().anyMatch(_card -> cardNumber.equals(_card.getCardNumber()));
     }
