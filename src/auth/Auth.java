@@ -1,8 +1,10 @@
 package auth;
 
+import user.Card;
 import user.User;
 
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 import static db.MyBase.*;
@@ -25,11 +27,18 @@ public class Auth {
                         userName = readLine("Creata a new username: ");
                     }
                     String name = readLine("Enter your name: ");
+                    UUID userID = UUID.randomUUID();
                     if (readInteger("""
                             Do you want to add a card right now?
                             1. Yes, sure\t2.Maybe later;
                             >>>""") == 1) {
-                        //todo("Add card metodini yozishing kerak")
+                        String cardNumber = readLine("Enter your card number: ");
+                        if (!isUsingCard(cardNumber)) {
+                            System.err.println("This card already added by someone, you can't use it!");
+                        } else {
+                            Card card = new Card(UUID.randomUUID(), cardNumber, new Random().nextLong(500, 1000), userID);
+                            addACard(card);
+                        }
                     } else {
                         System.out.println("Okay, you can add your cards in any time!");
                     }
@@ -38,7 +47,12 @@ public class Auth {
                 }
 
                 case 2 -> {
-
+                    String userName = readLine("Kirishingiz uchun usernameingizni kiriting: ");
+                    if (!alreadyRegistered(userName)) {
+                        System.err.println("Bunaqa username bilan ro'yxatdan o'tilmagan!");
+                    } else {
+                        return getUserByUserName(userName);
+                    }
                 }
 
                 case 0 -> {

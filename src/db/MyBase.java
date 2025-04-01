@@ -3,10 +3,7 @@ package db;
 import user.Card;
 import user.User;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public interface MyBase {
     List<User> users = new ArrayList<>();
@@ -18,6 +15,19 @@ public interface MyBase {
 
     static boolean isUsingCard(String cardNumber) {
         return cards.stream().anyMatch(_card -> cardNumber.equals(_card.getCardNumber()));
+    }
+
+    static void addACard(Card card) {
+        cards.add(card);
+    }
+
+    static Optional<User> getUserByUserName(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
 
     static String readLine(String message) {
