@@ -9,10 +9,7 @@ import user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -57,10 +54,32 @@ public class UserUI {
                 }
                 case 2 -> monitoring();
                 case 3 -> {
-
+                    List<OrderProduct> myCompletedOrders = getAllMyHistory();
+                    if (myCompletedOrders.isEmpty()) {
+                        System.out.println("You haven't get any product yet!");
+                        continue;
+                    }
+                    System.out.println("Your completed orders: ");
+                    for (OrderProduct myCompletedOrder : myCompletedOrders) {
+                        System.out.println(myCompletedOrder);
+                    }
+                    System.out.println();
                 }
                 case 4 -> {
-
+                    Optional<Card> cardByUserId = getCardByUserId(currentUser.getId());
+                    if (cardByUserId.isEmpty()) {
+                        System.err.println("You don't have card, please add your card!");
+                        continue;
+                    }
+                    long amount = readInteger("Enter a amount(0-200000) : ");
+                    if (amount < 0 || amount > 200_000) {
+                        System.err.println("Incorrect input, operation failed!");
+                        continue;
+                    }
+                    Card myCard = cardByUserId.get();
+                    myCard.setBalance(myCard.getBalance() + amount);
+                    MyCustomNio.readFromList(cards);
+                    System.out.println("Balance filled successfully!");
                 }
                 case 5 -> {
                     if (cards.stream().noneMatch(_card -> _card.getUserId().equals(currentUser.getId()))) {
@@ -88,6 +107,17 @@ public class UserUI {
             }
         }
 
+    }
+
+    private static List<OrderProduct> getAllMyHistory() {
+        List<OrderProduct> orders = new ArrayList<>();
+        for (OrderProduct orderProduct : orderProducts) {
+            if (orderProduct.getStatus() == OrderStatus.OLIBKETILDI &&
+                orderProduct.getUserId().equals(currentUser.getId())) {
+                orders.add(orderProduct);
+            }
+        }
+        return orders;
     }
 
     private static void monitoring() {
@@ -132,6 +162,10 @@ public class UserUI {
                         for (Card card : cards) {
                             if (card.getUserId().equals(currentUser.getId())) {
                                 card.setBalance(card.getBalance() + myOrderedProducts.get(chosenOption).getPrice());
+                                try {
+                                    MyCustomNio.readFromList(cards);
+                                } catch (IOException ignored) {
+                                }
                             }
                         }
                     });
