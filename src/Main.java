@@ -1,5 +1,6 @@
 import auth.Auth;
 import db.file.MyCustomNio;
+import handler.TelegramLogHandler;
 import ui.UserUI;
 import user.User;
 
@@ -15,6 +16,7 @@ public class Main {
     public static FileHandler signInSignUpHolder;
     public static FileHandler canceledProductHolder;
     public static FileHandler completedProductHolder;
+    public static TelegramLogHandler errorsHandler;
 
     static {
         try {
@@ -30,10 +32,17 @@ public class Main {
             completedProductHolder.setFormatter(new SimpleFormatter());
             completedProductHolder.setFilter(record -> record.getLevel() == Level.SEVERE);
 
+            errorsHandler = new TelegramLogHandler("<YOUR_BOT_TOKEN>", "CHAT_ID");
+            errorsHandler.setFormatter(new SimpleFormatter());
+            errorsHandler.setFilter(record -> record.getLevel() == Level.OFF);
+
+            logger.addHandler(errorsHandler);
             logger.addHandler(signInSignUpHolder);
+
             logger.addHandler(canceledProductHolder);
             logger.addHandler(completedProductHolder);
             logger.setUseParentHandlers(false);
+
         } catch (IOException ignored) {
         }
         MyCustomNio.run();
