@@ -1,14 +1,17 @@
 package ui;
 
+import db.file.MyCustomNio;
 import product.OrderProduct;
 import product.OrderStatus;
 import product.Product;
 import user.Card;
 import user.User;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -18,12 +21,15 @@ import static db.MyBase.*;
 public class UserUI {
     private static User currentUser;
 
-    public static void getCurrentUser(User user)  {
+    public static void getCurrentUser(User user) {
         currentUser = user;
-        run();
+        try {
+            run();
+        } catch (IOException ignored) {
+        }
     }
 
-    public static void run()  {
+    public static void run() throws IOException {
         Optional<Card> card = getCardByUserId(currentUser.getId());
         mainWhile:
         while (true) {
@@ -33,6 +39,7 @@ public class UserUI {
                     2. My orders(Monitoring!);
                     3. History;
                     4. Fill balance;
+                    5. Add a card;
                                         
                     0. log out;
                     >>>""".formatted(currentUser.getName(), card.isPresent() ? card.get().getBalance() :
@@ -54,6 +61,25 @@ public class UserUI {
                 }
                 case 4 -> {
 
+                }
+                case 5 -> {
+                    if (cards.stream().noneMatch(_card -> _card.getUserId().equals(currentUser.getId()))) {
+                        while (true) {
+                            String cardNumber = readLine("Enter a card number: ");
+                            if (cards.stream().anyMatch(_card -> _card.getCardNumber().equals(cardNumber))) {
+                                System.err.println("This card is using by someone!!!");
+                                continue;
+                            }
+                            Card newCard = new Card(UUID.randomUUID(), cardNumber, new Random().nextLong(5000, 10000), currentUser.getId());
+                            addACard(newCard);
+                            card = Optional.of(newCard);
+                            MyCustomNio.readFromList(cards);
+                            break;
+                        }
+                        System.out.println("Card added successfully!");
+                    } else {
+                        System.err.println("You have a card and you can't add anymore!");
+                    }
                 }
                 case 0 -> {
                     break mainWhile;
