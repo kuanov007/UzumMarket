@@ -46,6 +46,7 @@ public class Auth {
                     }
                     User user = new User(userID, name, userName);
                     users.add(user);
+                    logger.info(user + " - ro'yxatdan o'tdi!");
                     MyCustomNio.readFromList(users);
                     return Optional.of(user);
                 }
@@ -53,8 +54,10 @@ public class Auth {
                 case 2 -> {
                     String userName = readLine("Kirishingiz uchun usernameingizni kiriting: ");
                     if (!alreadyRegistered(userName)) {
+                        logger.info("Kimdir [" + userName + "] username orqali tizimga kirmoqchi bo'ldi!");
                         System.err.println("Bunaqa username bilan ro'yxatdan o'tilmagan!");
                     } else {
+                        logger.info(userName + " - tizimga kirdi!");
                         return getUserByUserName(userName);
                     }
                 }

@@ -74,6 +74,7 @@ public class UserUI {
                             addACard(newCard);
                             card = Optional.of(newCard);
                             MyCustomNio.readFromList(cards);
+                            logger.info(currentUser.getName() + " o'ziga karta qo'shdi");
                             break;
                         }
                         System.out.println("Card added successfully!");
@@ -123,6 +124,7 @@ public class UserUI {
                         """, tempOrderProductToCancel);
                 if (readInteger(">>>") == 1) {
                     myOrderedProducts.get(chosenOption).setStatus(OrderStatus.BUYURTMA_BEKOR_QILINDI);
+                    logger.warning(currentUser + " - " + myOrderedProducts.get(chosenOption) + " orderini bekor qildi!");
                     System.out.println("Order has cancelled!");
                     System.out.println("The order fee will be refunded after 3 minutes!");
                     Thread refunderThread = new Thread(() -> {
@@ -190,12 +192,12 @@ public class UserUI {
                 return;
             }
             orderProduct.setStatus(OrderStatus.YIGILYAPDI);
-            secondSleep(15);
+            secondSleep(5);
             if (itsCancelled(orderProduct)) {
                 return;
             }
             orderProduct.setStatus(OrderStatus.KURYERDA);
-            secondSleep(120);
+            secondSleep(20);
             if (itsCancelled(orderProduct)) {
                 return;
             }
@@ -208,6 +210,7 @@ public class UserUI {
     private static void checkProductIsGotByUser(OrderProduct orderProduct) {
         if (orderProduct.getStatus().equals(OrderStatus.OLIBKETISHGA_TAYYOR)) {
             orderProduct.setStatus(OrderStatus.OLIBKETILDI);
+            logger.severe(orderProduct + " - orderi sotildi!");
         }
     }
 

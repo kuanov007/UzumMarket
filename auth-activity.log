@@ -1,0 +1,8 @@
+Apr 05, 2025 10:04:47 PM auth.Auth run
+INFO: User{id=7cc1ffbf-d573-46e5-84e4-2ce9e34331cd, name='6', username='6'} - ro'yxatdan o'tdi!
+Apr 05, 2025 10:04:47 PM ui.UserUI run
+INFO: Tizimga 6 usernameli user kirdi!
+Apr 05, 2025 10:05:44 PM auth.Auth run
+INFO: 1 - tizimga kirdi!
+Apr 05, 2025 10:11:02 PM auth.Auth run
+INFO: 1 - tizimga kirdi!

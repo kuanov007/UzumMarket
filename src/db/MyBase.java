@@ -8,8 +8,10 @@ import user.User;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public interface MyBase {
+    Logger logger = Logger.getLogger("AppAllLogs");
     List<User> users = new ArrayList<>();
     List<Card> cards = new ArrayList<>();
     List<Product> products = new ArrayList<>();

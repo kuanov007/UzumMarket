@@ -5,10 +5,37 @@ import user.User;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
+
+import static db.MyBase.logger;
 
 public class Main {
+    public static FileHandler signInSignUpHolder;
+    public static FileHandler canceledProductHolder;
+    public static FileHandler completedProductHolder;
 
     static {
+        try {
+            signInSignUpHolder = new FileHandler("auth-activity.log", true);
+            signInSignUpHolder.setFormatter(new SimpleFormatter());
+            signInSignUpHolder.setFilter(record -> record.getLevel() == Level.INFO);
+
+            canceledProductHolder = new FileHandler("canceled-orders.log", true);
+            canceledProductHolder.setFormatter(new SimpleFormatter());
+            canceledProductHolder.setFilter(record -> record.getLevel() == Level.WARNING);
+
+            completedProductHolder = new FileHandler("completed-orders.log", true);
+            completedProductHolder.setFormatter(new SimpleFormatter());
+            completedProductHolder.setFilter(record -> record.getLevel() == Level.SEVERE);
+
+            logger.addHandler(signInSignUpHolder);
+            logger.addHandler(canceledProductHolder);
+            logger.addHandler(completedProductHolder);
+            logger.setUseParentHandlers(false);
+        } catch (IOException ignored) {
+        }
         MyCustomNio.run();
     }
 

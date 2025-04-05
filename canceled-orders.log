@@ -1,0 +1,2 @@
+Apr 05, 2025 10:06:22 PM ui.UserUI monitoring
+WARNING: User{id=ec3a82b3-ca77-418a-85a8-67309e620edf, name='1', username='1'} - OrderProduct{, Product =Laptop, amount =1, total price =2000, status =BUYURTMA_BEKOR_QILINDI, createdTime=2025-04-05T22:06:11.509701446} orderini bekor qildi!
