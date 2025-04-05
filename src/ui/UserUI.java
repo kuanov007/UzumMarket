@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.stream.Stream;
 
 import static db.MyBase.*;
@@ -37,6 +38,7 @@ public class UserUI {
                     3. History;
                     4. Fill balance;
                     5. Add a card;
+                    6. Test tg log
                                         
                     0. log out;
                     >>>""".formatted(currentUser.getName(), card.isPresent() ? card.get().getBalance() :
@@ -100,6 +102,9 @@ public class UserUI {
                     } else {
                         System.err.println("You have a card and you can't add anymore!");
                     }
+                }
+                case 6 -> {
+                    logger.log(Level.OFF, " exception tested");
                 }
                 case 0 -> {
                     break mainWhile;

@@ -1,2 +1,14 @@
 Apr 05, 2025 10:11:56 PM ui.UserUI checkProductIsGotByUser
 SEVERE: OrderProduct{, Product =Keyboard, amount =2, total price =2000, status =OLIBKETILDI, createdTime=2025-04-05T22:11:21.076403327} - orderi sotildi!
+Apr 06, 2025 3:20:18 AM ui.UserUI run
+SEVERE: User{id=ec3a82b3-ca77-418a-85a8-67309e620edf, name='1', username='1'} tested!
+Apr 06, 2025 3:21:23 AM ui.UserUI run
+SEVERE: User{id=ec3a82b3-ca77-418a-85a8-67309e620edf, name='1', username='1'} tested!
+Apr 06, 2025 3:22:12 AM ui.UserUI run
+SEVERE: User{id=ec3a82b3-ca77-418a-85a8-67309e620edf, name='1', username='1'} tested!
+Apr 06, 2025 3:23:00 AM ui.UserUI run
+SEVERE: User{id=ec3a82b3-ca77-418a-85a8-67309e620edf, name='1', username='1'} tested!
+Apr 06, 2025 3:31:04 AM ui.UserUI run
+SEVERE: exception tested!
+Apr 06, 2025 3:31:52 AM ui.UserUI run
+SEVERE: exception tested!
