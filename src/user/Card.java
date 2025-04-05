@@ -1,9 +1,10 @@
 package user;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Card {
+public class Card implements Serializable {
     private UUID id;
 
     private String cardNumber;

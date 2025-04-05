@@ -16,6 +16,7 @@ public interface MyBase {
     List<OrderProduct> orderProducts = new ArrayList<>();
 
     static boolean alreadyRegistered(String username) {
+        if (users.isEmpty()) return false;
         return users.stream().anyMatch(_user -> username.equals(_user.getUsername()));
     }
 

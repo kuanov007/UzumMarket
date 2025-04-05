@@ -16,17 +16,6 @@ import java.util.stream.Stream;
 import static db.MyBase.*;
 
 public class UserUI {
-
-    static {
-        products.add(new Product(UUID.randomUUID(), "Smartphone", 1000));
-        products.add(new Product(UUID.randomUUID(), "Laptop", 2000));
-        products.add(new Product(UUID.randomUUID(), "Charger", 3000));
-        products.add(new Product(UUID.randomUUID(), "Light", 400));
-        products.add(new Product(UUID.randomUUID(), "Router", 600));
-        products.add(new Product(UUID.randomUUID(), "Mouse", 300));
-        products.add(new Product(UUID.randomUUID(), "Keyboard", 1000));
-    }
-
     private static User currentUser;
 
     public static void getCurrentUser(User user)  {

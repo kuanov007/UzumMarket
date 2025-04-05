@@ -1,9 +1,10 @@
 package product;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Product {
+public class Product implements Serializable {
     private UUID id;
     private String name;
     private long price;

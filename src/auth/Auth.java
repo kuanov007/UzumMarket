@@ -1,8 +1,10 @@
 package auth;
 
+import db.file.MyCustomNio;
 import user.Card;
 import user.User;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -10,7 +12,7 @@ import java.util.UUID;
 import static db.MyBase.*;
 
 public class Auth {
-    public static Optional<User> run() {
+    public static Optional<User> run() throws IOException {
         mainWhile:
         while (true) {
             switch (readInteger("""
@@ -18,7 +20,7 @@ public class Auth {
                     1. Register;
                     2. Sign in;
                                         
-                    0. Exit;    
+                    0. Exit; 
                     >>""")) {
                 case 1 -> {
                     String userName = readLine("Creata a new username: ");
@@ -37,12 +39,14 @@ public class Auth {
                         } else {
                             Card card = new Card(UUID.randomUUID(), cardNumber, new Random().nextLong(5000, 10000), userID);
                             addACard(card);
+                            MyCustomNio.readFromList(cards);
                         }
                     } else {
                         System.out.println("Okay, you can add your cards in any time!");
                     }
                     User user = new User(userID, name, userName);
                     users.add(user);
+                    MyCustomNio.readFromList(users);
                     return Optional.of(user);
                 }
 
